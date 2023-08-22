@@ -1,0 +1,72 @@
+TRAIN_FOLDER: [data/train/solid, data/train/plain_sensel]
+WEAK_TRAIN_FOLDER: [data/weak_train]
+# TEST_FOLDER: [data/test]
+# WEAK_TEST_FOLDER: [data/weak_test]
+TEST_FOLDER: [data/final_test_DONT_TOUCH]
+WEAK_TEST_FOLDER: [data/final_weak_test_DONT_TOUCH]
+
+MODEL_DIR: checkpoints
+
+ROBOT_STATES: [lift_effort, arm_effort, roll_effort, pitch_effort, yaw_effort, gripper_effort, x, theta, z, y, roll, pitch, yaw, gripper]
+
+CAMERA: uc684
+
+LEARNING_RATE_INITIAL: 0.001
+LEARNING_RATE_SCHEDULER_STEP:
+  - 15
+LEARNING_RATE_SCHEDULER_GAMMA: 0.1
+BATCH_SIZE: 14
+NUM_WORKERS: 12
+NUM_EPOCHS: 30
+TRAIN_ITERS_PER_EPOCH: 10000
+
+FORCE_CLASSIFICATION: True
+USE_SOFT_CROSS_ENTROPY: True
+SOFT_CROSS_ENTROPY_OMEGA: 1
+# USE_LOG_MSE: True
+# NORM_FORCE_REGRESS: 20
+
+DATALOADER_FORCE_METHOD: 2
+NUM_FORCE_CLASSES: 9
+FORCE_THRESHOLDS:
+  - 0.0
+  - 0.5
+  - 1.0
+  - 2.0
+  - 4.0
+  - 8.0
+  - 16.0
+  - 32.0
+  - 64.0
+FORCE_CLASSIFICATION_NONZERO_WEIGHT: 1
+CONTACT_THRESH: 1.0
+
+NETWORK_TYPE: fpn_dann_logits
+# NETWORK_TYPE: fpn_dann_logits_regression
+NETWORK_IMAGE_SIZE_X: 448
+NETWORK_IMAGE_SIZE_Y: 448
+NETWORK_INPUT_CHANNELS: 3
+
+LAMBDA_PRESSURE: 1
+LAMBDA_DOMAIN: 0.00
+LAMBDA_WEAK_SOURCE: 0.005 #
+LAMBDA_WEAK_TARGET: 0.005 #
+
+USE_NONMASKED_LOSS: True
+
+TRANSFORM: [jitter]
+PIXEL_MEAN:
+  - 0.5
+  - 0.5
+  - 0.5
+
+PIXEL_STD:
+  - 0.5
+  - 0.5
+  - 0.5
+
+LOSS_RATIO: 5.6
+
+ACTION_DELTA_DICT: {x: 0.02, y: 0.02, z: 0.005, roll: 0.1, pitch: 0.1, yaw: 0.05, gripper: 5, theta: 0.1}
+
+ARUCO: 'angled_6x2'
